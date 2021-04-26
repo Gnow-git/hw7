@@ -322,8 +322,27 @@ int insertNode(headNode* h, int key) {
  * list에서 key에 대한 노드 삭제
  */
 int deleteNode(headNode* h, int key) {
-  
+  listNode *find = h -> first;                  // find 노드가 first를 가리킨다
+  listNode *frontfind = NULL;                          // 삭제 시킬 노드
+  if(h->first->rlink == NULL)                    // head의 첫 노드부터 탐색 시작
+  {
+     printf("저장된 데이터가 없습니다 !\n");
+  }
+  else{
+     while(find->rlink!=NULL){                    // find의 link가 NULL이 될때까지 돈다.
+        if (find-> rlink-> key == key)            // 입력한 key 값과 같은 노드의 값이 있다면
+        {
+           frontfind = find ->rlink;              // 찾고자하는 값을 frontfind로 가리킨다.
+           find -> rlink = find ->rlink->rlink;     // 삭제하고자하는 노드의 양옆을 이어준다.
+           free(frontfind);                      // 대상 노드를 삭제시킨다.
+           return 0;
+        }
+        find = find -> rlink;                      // 찾는 값이 없으면 다음 데이터로 넘어간다.
+     }
+     if (find == NULL) printf("찾는 데이터가 없습니다\n");
+  }
   return 1;
 }
+
 
 
