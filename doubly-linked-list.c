@@ -288,6 +288,31 @@ int invertList(headNode* h) {			// 리스트의 노드를 역순으로 바꾸는 함수
 
 /* 리스트를 검색하여, 입력받은 key보다 큰값이 나오는 노드 바로 앞에 삽입 */
 int insertNode(headNode* h, int key) {
+	listNode* node = (listNode*)malloc(sizeof(listNode));	//node라는 리스트 노드 할당
+	listNode* find = h->first;								// 찾고자하는 
+	node->key = key;
+	if(h->first == NULL)
+	{
+		printf("저장된 데이터가 없습니다.\n");
+		node->rlink = NULL;
+		node->llink = NULL;
+		return 0;
+		
+	}else{
+		while(find->rlink!=NULL){
+			if(find->rlink->key > node->key)
+			{
+				node->rlink = find->rlink;		//node의 rlink를 find의 rlink로 변경
+				find->rlink->llink = node;		//find의 rlink와 link를 node에 지정
+				node->llink = find;				//node의 llink를 find에 지정
+				find->rlink = node;				//find의 rlink를 node에 지정
+				return 0;
+			}
+			find = find->rlink;					//find의 다음 단계를 탐색
+		}
+		insertLast(h, key);						//큰 값이 없을시 마지막에 노드 추가
+	}
+	
 	
 	return 0;
 }
